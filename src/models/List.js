@@ -1,21 +1,7 @@
 import mongoose , {Schema} from "mongoose";
+import todoSchema from "./Todo.js";
 
-const todoSchema = new Schema({
-    title: {
-        type: String,
-        required: true,
-        trim: true
-    },
-    description: {
-        type: String,
-        required: true,
-        trim: true
-    },
-    completed: {
-        type: Boolean,
-        default: false
-    }
-});
+
 
 const listSchema = new Schema({
     title: {
@@ -33,7 +19,7 @@ const listSchema = new Schema({
         ref: "User",
         required: true
     },
-    todos: [todoSchema]
+    todos: [todoSchema.schema],
 }, {timestamps: true});
 
 const list = mongoose.model('List',listSchema);
