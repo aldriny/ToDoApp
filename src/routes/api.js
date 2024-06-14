@@ -12,7 +12,7 @@ const route = express.Router();
 // ----------------- Auth routes -----------------
 route.post('/register', RegisterController);
 route.post('/login', LoginController);
-route.get('/logout', LogoutController);
+route.get('/logout', authenticate , LogoutController);
 
 // ----------------- List routes -----------------
 route.post('/create-list', authenticate, CreateListController);

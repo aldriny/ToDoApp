@@ -1,8 +1,17 @@
+import Token from "../../models/Token.js";
 
-const logout = (req,res) =>{
+const logout = async (req,res,next) =>{
     try {
-        res.cookie('jwt','',{maxAge: 0, httpOnly: true});
-        res.redirect('/');      
+        const token = req.token;
+        const tokenRecord = await Token.findOne({token: token});
+        if(!tokenRecord){
+            return res.status(400).json({message: "Invalid token"});
+        }
+        tokenRecord.isRevoked = true;
+        await tokenRecord.save();
+        res.json({
+            message: "Logged out successfully",
+        })
     } catch (error) {
         next(error);
     }
