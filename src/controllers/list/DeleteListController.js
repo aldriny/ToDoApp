@@ -14,14 +14,10 @@ const deleteList = async (req, res, next) => {
             return res.status(404).json({message: "List not found"});
         }
 
-        const todos = await Todo.find({listId: listId});
+        const todos = await Todo.deleteMany({listId});
         if (!todos) {
             return res.status(404).json({message: "List doesn't have todos"});
         }
-
-        todos.forEach(async (todo) => {
-            await Todo.findByIdAndDelete(todo._id);
-        })
 
         await List.findByIdAndDelete(listId);
         res.status(200).json({message: "List deleted successfully"});
