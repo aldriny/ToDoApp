@@ -1,7 +1,4 @@
 import mongoose , {Schema} from "mongoose";
-import todoSchema from "./Todo.js";
-
-
 
 const listSchema = new Schema({
     title: {
@@ -19,7 +16,12 @@ const listSchema = new Schema({
         ref: "User",
         required: true
     },
-    todos: [todoSchema.schema],
+    todos: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "Todo"
+        }
+    ],
 }, {timestamps: true});
 
 const list = mongoose.model('List',listSchema);

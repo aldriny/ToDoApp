@@ -1,5 +1,6 @@
 import List from '../../models/List.js';
 import editListSchema from '../../requests/list/EditListRequests.js';
+import validId from '../../utils/validId.js';
 
 const editList = async (req, res, next) => {
     try {
@@ -12,10 +13,12 @@ const editList = async (req, res, next) => {
             return res.status(400).json({message: error.details[0].message});
         }
 
+        validId([listId,userId]);
+
         const updatedList = await List.findOneAndUpdate(
             {_id: listId, userId: userId},
             {$set : {title: title , description: description}},
-            {new : true}    
+            {new : true}
         )
 
         if(!updatedList){

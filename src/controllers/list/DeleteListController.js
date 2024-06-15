@@ -1,12 +1,11 @@
 import List from "../../models/List.js";
-import { Types } from "mongoose";
+import validId from "../../utils/validId.js";
 
 const deleteList = async (req, res, next) => {
     try {
         const listId = req.params.listId;
-        if (!Types.ObjectId.isValid(listId)) {
-            return res.status(400).json({ message: "Invalid list ID format" });
-          }  
+
+        validId([listId]);
 
         const deleteList = await List.findByIdAndDelete(listId);
         

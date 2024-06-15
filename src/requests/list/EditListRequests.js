@@ -2,12 +2,10 @@ import Joi from "joi";
 
 const editListSchema = Joi.object({
     title: Joi.string().trim().min(2).max(70).optional().messages({
-        'string.min': `Title should be at least {#limit} characters long.`,
-        'string.max': `Title should be at most {#limit} characters long.`,
+        'string.min': `Title should be at least 2 characters long.`,
+        'string.max': `Title should be at most 70 characters long.`,
     }),
-    description: Joi.string().trim().optional().messages({
-        'string.empty': 'Description is a required field.'
-    }),
+    description: Joi.string().trim().optional(),
     userId: Joi.string().trim().required().messages({
         'string.empty': `User ID is required.`,
         'any.required': 'User ID is a required field.'

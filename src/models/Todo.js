@@ -14,6 +14,16 @@ const todoSchema = new Schema({
     completed: {
         type: Boolean,
         default: false
+    },
+    listId: {
+        type: Schema.Types.ObjectId,
+        ref: "List",
+        required: true
+    },
+    userId: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+        required: true
     }
 });
 
